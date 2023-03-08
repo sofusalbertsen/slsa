@@ -6,8 +6,8 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-    tags:
+    tags: 
+      - '*'
    # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -57,11 +57,11 @@ jobs:
       actions: read
       id-token: write
       contents: write
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.5.0
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.4.0
     with:
       base64-subjects: "${{ needs.build.outputs.hashes }}"
       # Upload provenance to a new release
-      upload-assets: false
+      upload-assets: true
 
   # This step uploads our artifacts to the tagged GitHub release.
   release:
